@@ -1,6 +1,8 @@
 
 # JEH added
-tutorial/ # Which is a scrapy tutorial
+
+# scrapy tutorial
+tutorial/
 
 # Created by https://www.gitignore.io/api/linux,python,windows,pycharm+all,visualstudiocode
 
