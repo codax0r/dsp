@@ -26,7 +26,7 @@ class RicardoSpider(scrapy.Spider):
                 yield response.follow(overview_page, callback=self.parse_overview)
 
     def parse_article(self, response):
-        yield {
+        attributes = {
             'title': response.css("div.title h1::text").extract_first(),
             'subtitle': response.css("div.title h4.subtitle::text").extract_first(),
             'performance': int(response.css("div.power div.value::text").extract_first().replace(" PS", "")),
@@ -34,4 +34,20 @@ class RicardoSpider(scrapy.Spider):
             'registration': response.css("div.registration div.value::text").extract_first(),
             'price': float(response.css("div.price span:last-of-type::text").extract_first().replace("'", "")),
             'description': response.css("#article-description::text").extract_first(),
+            'location': response.css("div.seller-info address div span::text").extract_first(),
+            'image_urls': response.css("#pictures-collection img.lazy-img::attr(src)").extract(),
         }
+
+        details = response.css(".details-list.section-list")
+        for item in details.css("div.item"):
+            label = item.css("span.label::text").extract_first()
+            value = item.css("span.value::text").extract_first()
+            attributes.update({label: value})
+
+        environment = response.css(".environment-details-list.section-list")
+        for item in environment.css("div.item"):
+            label = item.css("span.label::text").extract_first()
+            value = item.css("span.value::text").extract_first()
+            attributes.update({label: value})
+
+        yield attributes

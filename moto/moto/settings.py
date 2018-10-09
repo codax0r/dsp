@@ -17,6 +17,8 @@ NEWSPIDER_MODULE = 'moto.spiders'
 
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
 #USER_AGENT = 'moto (+http://www.yourdomain.com)'
+USER_AGENT = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:62.0) Gecko/20100101 Firefox/62.0'
+MEDIA_ALLOW_REDIRECTS = True
 
 # Obey robots.txt rules
 # ROBOTSTXT_OBEY = True
@@ -67,6 +69,8 @@ NEWSPIDER_MODULE = 'moto.spiders'
 #ITEM_PIPELINES = {
 #    'moto.pipelines.MotoPipeline': 300,
 #}
+ITEM_PIPELINES = {'scrapy.pipelines.images.ImagesPipeline': 1}
+IMAGES_STORE = './images/'
 
 # Enable and configure the AutoThrottle extension (disabled by default)
 # See https://doc.scrapy.org/en/latest/topics/autothrottle.html
